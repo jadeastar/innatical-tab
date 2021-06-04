@@ -5,9 +5,10 @@ import styles from '../styles/Home.module.scss'
 import React, { useEffect, useState } from 'react'
 import NewsWidget from '../components/NewsWidget'
 import CustomWidget from '../components/CustomWidget'
+import WeatherWidget from '../components/WeatherWidget'
 
 interface Widget {
-  type: 'stock' | 'news' | 'custom'
+  type: 'stock' | 'news' | 'custom' | 'weather'
   props?: any
 }
 
@@ -24,12 +25,6 @@ const Home = () => {
           {
             type: 'stock',
             props: {
-              symbol: 'TSLA'
-            }
-          },
-          {
-            type: 'stock',
-            props: {
               symbol: 'GME'
             }
           },
@@ -38,16 +33,17 @@ const Home = () => {
             props: {
               src: 'https://ytprivate.com/embed/dQw4w9WgXcQ'
             }
+          },
+          {
+            type: 'weather',
+            props: {
+              city: '',
+              units: ''
+            }
           }
         ])
       )
       setWidgets([
-        {
-          type: 'stock',
-          props: {
-            symbol: 'TSLA'
-          }
-        },
         {
           type: 'stock',
           props: {
@@ -58,6 +54,13 @@ const Home = () => {
           type: 'custom',
           props: {
             src: 'https://ytprivate.com/embed/dQw4w9WgXcQ'
+          }
+        },
+        {
+          type: 'weather',
+          props: {
+            city: '',
+            units: ''
           }
         }
       ])
@@ -103,6 +106,8 @@ const Home = () => {
               return <NewsWidget />
             case 'custom':
               return <CustomWidget {...widget.props} />
+            case 'weather':
+              return <WeatherWidget {...widget.props} />
           }
         })}
       </div>
