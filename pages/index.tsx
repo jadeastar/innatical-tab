@@ -2,10 +2,9 @@ import Time from '../components/Time'
 import PinnedSites from '../components/PinnedSites'
 import StockWidget from '../components/StockWidget'
 import styles from '../styles/Home.module.scss'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NewsWidget from '../components/NewsWidget'
 import CustomWidget from '../components/CustomWidget'
-import { useLocalStorage } from 'react-use'
 
 interface Widget {
   type: 'stock' | 'news' | 'custom'
@@ -13,26 +12,57 @@ interface Widget {
 }
 
 const Home = () => {
-  const [widgets] = useLocalStorage<Widget[]>('widgets', [
-    {
-      type: 'stock',
-      props: {
-        symbol: 'TSLA'
-      }
-    },
-    {
-      type: 'stock',
-      props: {
-        symbol: 'GME'
-      }
-    },
-    {
-      type: 'custom',
-      props: {
-        src: 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ'
-      }
+  const [widgets, setWidgets] = useState<Widget[] | null>()
+  useEffect(() => {
+    const item = localStorage.getItem('widgets')
+    if (item) {
+      setWidgets(JSON.parse(item))
+    } else {
+      localStorage.setItem(
+        'widgets',
+        JSON.stringify([
+          {
+            type: 'stock',
+            props: {
+              symbol: 'TSLA'
+            }
+          },
+          {
+            type: 'stock',
+            props: {
+              symbol: 'GME'
+            }
+          },
+          {
+            type: 'custom',
+            props: {
+              src: 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ'
+            }
+          }
+        ])
+      )
+      setWidgets([
+        {
+          type: 'stock',
+          props: {
+            symbol: 'TSLA'
+          }
+        },
+        {
+          type: 'stock',
+          props: {
+            symbol: 'GME'
+          }
+        },
+        {
+          type: 'custom',
+          props: {
+            src: 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ'
+          }
+        }
+      ])
     }
-  ])
+  }, [])
 
   return (
     <div>
