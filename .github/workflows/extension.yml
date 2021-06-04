@@ -30,3 +30,6 @@ jobs:
 
       - name: Upload Extension to Chrome Web Store
         run: node scripts/deploy.js
+
+      # - name: Sign Extension for Firefox
+      #   run: yarn sign-ext

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "build-ext": "next build && next export && web-ext build -s ./out"
+    "build-ext": "next build && next export && web-ext build -s ./out",
+    "sign-ext": "web-ext sign -s ./out"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
