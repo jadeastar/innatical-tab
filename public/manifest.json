@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "name": "Innatical Tab",
+  "version": "1.0",
+  "description": "New tab page from Innatical.",
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "browser_action": {
+    "default_icon": "icon128.png",
+    "default_title": "Innatical Tab",
+    "default_popup": "index.html"
+  },
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "options_ui": {
+    "page": "settings.html",
+    "open_in_tab": true
+  }
+}

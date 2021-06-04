@@ -1,0 +1,26 @@
+name: Extension
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+    
+    - name: Node.js
+      uses: actions/setup-node@v1
+    
+    - name: Install Packages
+      run: yarn install
+    
+    - name: Build Extension
+      run: yarn build-ext
+    
+    - name: Upload Extension
+      uses: actions/upload-artifact@v2
+      with: 
+        name: extension
+        path: ./web-ext-artifacts/innatical_tab-1.0.zip
