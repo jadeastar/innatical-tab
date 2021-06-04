@@ -36,7 +36,7 @@ const Home = () => {
           {
             type: 'custom',
             props: {
-              src: 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ'
+              src: 'https://ytprivate.com/embed/dQw4w9WgXcQ'
             }
           }
         ])
@@ -57,7 +57,7 @@ const Home = () => {
         {
           type: 'custom',
           props: {
-            src: 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ'
+            src: 'https://ytprivate.com/embed/dQw4w9WgXcQ'
           }
         }
       ])
