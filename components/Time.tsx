@@ -13,10 +13,10 @@ const Time = () => {
     }
   }, [])
 
-  const { data: forecast } = useQuery('weather', async () => {
+  const { data: forecast } = useQuery(['weather'], async () => {
     try {
-      const res = await (await fetch(`https://wttr.in/?format=j1`)).json()
-      return res.current_condition[0].weatherDesc[0].value as string
+      const res = await (await fetch(`https://wttr.in/?format=%c%20%C`)).text()
+      return res
     } catch {
       return 'Failed to load weather'
     }
