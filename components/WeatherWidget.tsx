@@ -36,7 +36,7 @@ const WeatherWidget = (props: { city: string; units: string }) => {
 
   return (
     <div
-      className='shadow bg-white dark:bg-gray-800'
+      className='shadow bg-white dark:bg-gray-800 dark:text-white'
       style={{ borderRadius: 32, width: 448, height: 412 }}
     >
       <div className='flex ml-4 mt-4'>
