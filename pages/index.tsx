@@ -6,11 +6,36 @@ import React, { useEffect, useState } from 'react'
 import NewsWidget from '../components/NewsWidget'
 import CustomWidget from '../components/CustomWidget'
 import WeatherWidget from '../components/WeatherWidget'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCog } from '@fortawesome/free-solid-svg-icons'
+import Link from 'next/link'
+import Settings from '../util/settings'
 interface Widget {
   type: 'stock' | 'news' | 'custom' | 'weather'
   props?: any
 }
+
+const defaultWidgets: Widget[] = [
+  {
+    type: 'stock',
+    props: {
+      symbol: 'GME'
+    }
+  },
+  {
+    type: 'custom',
+    props: {
+      src: 'https://ytprivate.com/embed/dQw4w9WgXcQ'
+    }
+  },
+  {
+    type: 'weather',
+    props: {
+      city: '',
+      units: ''
+    }
+  }
+]
 
 const Home = () => {
   const [widgets, setWidgets] = useState<Widget[] | null>()
@@ -19,57 +44,21 @@ const Home = () => {
     if (item) {
       setWidgets(JSON.parse(item))
     } else {
-      localStorage.setItem(
-        'widgets',
-        JSON.stringify([
-          {
-            type: 'stock',
-            props: {
-              symbol: 'GME'
-            }
-          },
-          {
-            type: 'custom',
-            props: {
-              src: 'https://ytprivate.com/embed/dQw4w9WgXcQ'
-            }
-          },
-          {
-            type: 'weather',
-            props: {
-              city: '',
-              units: ''
-            }
-          }
-        ])
-      )
-      setWidgets([
-        {
-          type: 'stock',
-          props: {
-            symbol: 'GME'
-          }
-        },
-        {
-          type: 'custom',
-          props: {
-            src: 'https://ytprivate.com/embed/dQw4w9WgXcQ'
-          }
-        },
-        {
-          type: 'weather',
-          props: {
-            city: '',
-            units: ''
-          }
-        }
-      ])
+      localStorage.setItem('widgets', JSON.stringify(defaultWidgets))
+      setWidgets(defaultWidgets)
     }
   }, [])
 
+  const { backgroundImage, pinnedSites } = Settings.useContainer()
+
   return (
     <div>
-      <div className={`${styles.banner} p-12 relative bg-no-repeat bg-cover`}>
+      <div
+        className={`${styles.banner} p-12 relative bg-no-repeat bg-cover bg-center`}
+        style={{
+          backgroundImage: `url(${backgroundImage})`
+        }}
+      >
         <Time />
         <input
           className={`p-7 absolute h-10 rounded-3xl w-7/12 xl:w-5/12 shadow left-0 right-0 mx-auto dark:bg-gray-800 dark:text-white ${styles.searchBar}`}
@@ -85,17 +74,7 @@ const Home = () => {
         ></input>
       </div>
       <div className='mx-auto max-w-3xl pt-10'>
-        <PinnedSites
-          urls={[
-            'https://octii.chat',
-            'https://duckduckgo.com',
-            'https://twitter.com',
-            'https://reddit.com',
-            'https://news.ycombinator.com',
-            'https://youtube.com',
-            `https://nytimes.com`
-          ]}
-        />
+        <PinnedSites urls={pinnedSites} />
       </div>
       <div className='flex flex-wrap p-12 gap-5 justify-center'>
         {widgets?.map((widget) => {
@@ -111,6 +90,16 @@ const Home = () => {
           }
         })}
       </div>
+      <Link href='/settings'>
+        <button type='button'>
+          <FontAwesomeIcon
+            className='absolute bottom-5 right-5 dark:text-white'
+            icon={faCog}
+            size='3x'
+            fixedWidth
+          />
+        </button>
+      </Link>
     </div>
   )
 }

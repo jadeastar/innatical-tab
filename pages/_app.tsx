@@ -1,6 +1,8 @@
+import '../util/global'
 import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import '../styles/globals.scss'
+import Settings from '../util/settings'
 
 const queryClient = new QueryClient()
 
@@ -13,7 +15,9 @@ function MyApp({
 }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
+      <Settings.Provider>
+        <Component {...pageProps} />
+      </Settings.Provider>
     </QueryClientProvider>
   )
 }
