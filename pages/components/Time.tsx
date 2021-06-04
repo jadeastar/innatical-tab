@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useGeolocation } from 'react-use'
+import { useQuery } from 'react-query'
 
 const Time = () => {
   const [, setTick] = useState<object>()
@@ -13,31 +13,18 @@ const Time = () => {
     }
   }, [])
 
-  const state = useGeolocation()
-  const [forecast, setForecast] = useState('Loading...')
-
-  useEffect(() => {
-    if (!state.longitude || !state.latitude) return
-    ;(async () => {
-      try {
-        const res = await (
-          await fetch(
-            `https://api.weather.gov/points/${state.latitude},${state.longitude}`
-          )
-        ).json()
-        const forecastResult = await (
-          await fetch(res.properties.forecast)
-        ).json()
-        setForecast(forecastResult.properties.periods[0].shortForecast)
-      } catch {
-        setForecast('Failed to load weather')
-      }
-    })()
-  }, [state.latitude, state.longitude])
+  const { data: forecast } = useQuery('weather', async () => {
+    try {
+      const res = await (await fetch(`https://wttr.in/?format=j1`)).json()
+      return res.current_condition[0].weatherDesc[0].value as string
+    } catch {
+      return 'Failed to load weather'
+    }
+  })
 
   return (
-    <div className='text-white rounded-lg mb-5'>
-      <h1 className='text-4xl font-bold'>{new Date().toLocaleTimeString()}</h1>
+    <div className='text-white rounded-lg'>
+      <h1 className='text-5xl font-bold'>{new Date().toLocaleTimeString()}</h1>
       <h2 className='text-xl'>
         {new Date().toLocaleDateString([], {
           month: 'long',

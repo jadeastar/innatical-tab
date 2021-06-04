@@ -9,25 +9,10 @@ body {
   //overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-
-  background: rgb(86, 76, 255);
-  background: -moz-linear-gradient(
-    90deg,
-    rgba(86, 76, 255, 1) 0%,
-    rgba(30, 30, 233, 1) 100%,
-    rgba(0, 212, 255, 1) 100%
-  );
-  background: -webkit-linear-gradient(
-    90deg,
-    rgba(86, 76, 255, 1) 0%,
-    rgba(30, 30, 233, 1) 100%,
-    rgba(0, 212, 255, 1) 100%
-  );
-  background: linear-gradient(
-    90deg,
-    rgba(86, 76, 255, 1) 0%,
-    rgba(30, 30, 233, 1) 100%,
-    rgba(0, 212, 255, 1) 100%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#564cff",endColorstr="#00d4ff",GradientType=1);
+  @media (prefers-color-scheme: dark) {
+    background: #040a0f;
+  }
+  @media (prefers-color-scheme: light) {
+    background: #efefef;
+  }
 }
