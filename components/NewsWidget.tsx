@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import styles from '../../styles/NewsWidget.module.scss'
+import styles from '../styles/NewsWidget.module.scss'
 import { useQuery } from 'react-query'
 
 // const QuoteCard = (props: {

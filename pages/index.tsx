@@ -1,10 +1,10 @@
-import Time from './components/Time'
-import PinnedSites from './components/PinnedSites'
-import StockWidget from './components/StockWidget'
+import Time from '../components/Time'
+import PinnedSites from '../components/PinnedSites'
+import StockWidget from '../components/StockWidget'
 import styles from '../styles/Home.module.scss'
 import React from 'react'
-import NewsWidget from './components/NewsWidget'
-import CustomWidget from './components/CustomWidget'
+import NewsWidget from '../components/NewsWidget'
+import CustomWidget from '../components/CustomWidget'
 import { useLocalStorage } from 'react-use'
 
 interface Widget {
@@ -12,7 +12,7 @@ interface Widget {
   props?: any
 }
 
-const Dev = () => {
+const Home = () => {
   const [widgets] = useLocalStorage<Widget[]>('widgets', [
     {
       type: 'stock',
@@ -80,4 +80,4 @@ const Dev = () => {
   )
 }
 
-export default Dev
+export default Home
