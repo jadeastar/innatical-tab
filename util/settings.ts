@@ -33,7 +33,6 @@ const useSettings = () => {
     'https://duckduckgo.com',
     'https://twitter.com',
     'https://reddit.com',
-    'https://news.ycombinator.com',
     'https://youtube.com',
     `https://nytimes.com`
   ])

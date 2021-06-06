@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+<<<<<<< HEAD
     "export": "next export"
+=======
+    "build-ext": "next build && next export && web-ext build -s ./out",
+    "sign-ext": "web-ext sign -s ./out"
+>>>>>>> 50d85600a8209c945a56e29acd699d90f5e968f5
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -14,12 +19,14 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@innatical/innstate": "^1.0.3",
     "@polygon.io/client-js": "^2.1.2",
+    "chrome-webstore-upload": "^0.4.4",
     "next": "10.2.3",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-image-fallback": "^8.0.0",
     "react-query": "^3.16.0",
-    "react-use": "^17.2.4"
+    "react-use": "^17.2.4",
+    "web-ext": "^6.1.0"
   },
   "devDependencies": {
     "@types/react": "^17.0.9",

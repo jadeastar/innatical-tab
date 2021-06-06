@@ -1,0 +1,35 @@
+name: Extension
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install Packages
+        run: yarn install
+
+      - name: Build Extension
+        run: yarn build-ext
+
+      - name: Upload Extension as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: extension
+          path: ./web-ext-artifacts/innatical_tab-1.0.zip
+
+      - name: Upload Extension to Chrome Web Store
+        run: node scripts/deploy.js
+
+      # - name: Sign Extension for Firefox
+      #   run: yarn sign-ext
