@@ -6,12 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-<<<<<<< HEAD
-    "export": "next export"
-=======
+    "export": "next export",
     "build-ext": "next build && next export && web-ext build -s ./out",
     "sign-ext": "web-ext sign -s ./out"
->>>>>>> 50d85600a8209c945a56e29acd699d90f5e968f5
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
