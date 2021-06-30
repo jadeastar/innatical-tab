@@ -4,7 +4,7 @@ const StockWidget = (props: { symbol: string }) => {
       width='448'
       height='412'
       src={`https://public.com/stocks/${props.symbol}/embed`}
-      className='shadow border-0'
+      className='shadow border-0 bg-white dark:bg-gray-800'
       style={{ borderRadius: 32 }}
     ></iframe>
   )
