@@ -1,0 +1,6 @@
+version: "3.8"
+services:
+  website:
+    image: ghcr.io/innatical/innatical-tab:main
+    ports:
+      - "3007:3000"
