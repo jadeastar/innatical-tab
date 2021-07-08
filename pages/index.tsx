@@ -1,17 +1,13 @@
 import Time from '../components/Time'
 import PinnedSites from '../components/PinnedSites'
 import styles from '../styles/Home.module.scss'
-import React, { useEffect, useState, Fragment } from 'react'
+import React, { useEffect, useState } from 'react'
 import WeatherWidget from '../components/WeatherWidget'
-import WidgetBase from '../components/WidgetBase'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
-import Link from 'next/link'
 import Settings from '../util/settings'
 import BlankWidget from '../components/BlankWidget'
 import StockWidget from '../components/StockWidget'
-import dynamic from 'next/dynamic'
 import PinnedSitesEditable from '../components/PinnedSitesEditable'
 import Friends from '../components/Friends'
 
@@ -31,13 +27,7 @@ const defaultWidgets: Widget[] = [
   {
     type: 'stock',
     props: {
-      symbols: [
-        'GME',
-        'APPL',
-        'RBLX',
-        'TSLA'
-
-      ]
+      symbols: ['GME', 'APPL', 'RBLX', 'TSLA']
     }
   },
   {
@@ -58,30 +48,29 @@ const defaultWidgets: Widget[] = [
     props: {
       friends: [
         {
-          name: "Lleyton",
+          name: 'Lleyton',
           status: Status.ONLINE
         },
         {
-          name: "Owen",
+          name: 'Owen',
           status: Status.DND
         },
         {
-          name: "Paxton",
+          name: 'Paxton',
           status: Status.IDLE
         },
         {
-          name: "Joel",
+          name: 'Joel',
           status: Status.ONLINE
         },
         {
-          name: "Wyeth",
+          name: 'Wyeth',
           status: Status.OFFLINE
         }
-      ],
+      ]
     }
   }
 ]
-
 
 const Home = () => {
   const [widgets, setWidgets] = useState<Widget[] | null>()
@@ -95,7 +84,8 @@ const Home = () => {
     }
   }, [])
 
-  const { backgroundImage, pinnedSites, setBackgroundImage, setPinnedSites } = Settings.useContainer()
+  const { backgroundImage, pinnedSites, setBackgroundImage, setPinnedSites } =
+    Settings.useContainer()
   const [open, setOpen] = useState(false)
 
   return (
@@ -131,44 +121,45 @@ const Home = () => {
             case 'weather':
               return <WeatherWidget {...widget.props} />
             case 'friend':
-              return <Friends  {...widget.props} />
+              return <Friends {...widget.props} />
             default:
               return <BlankWidget />
           }
         })}
       </div>
-      {open && <div className="fixed bottom-0 top-0 right-0 w-96 shadow bg-offwhite dark:bg-secondary dark:text-white p-5 flex flex-col">
-        <h1 className="font-bold text-2xl">Settings</h1>
-        <div className={'flex flex-col mb-5'}>
-          <label className="text-xl pt-4">Bookmark Settings</label>
-
-          <div className="flex">
+      {open && (
+        <div className='fixed bottom-0 top-0 right-0 w-96 shadow bg-offwhite dark:bg-secondary dark:text-white p-5 flex flex-col'>
+          <h1 className='font-bold text-2xl'>Settings</h1>
+          <div className='flex flex-col mb-5'>
+            <label className='pt-4'>Bookmark Settings</label>
             <PinnedSitesEditable urls={pinnedSites} />
           </div>
-
-          <label className="pt-48">Background Image</label>
-          <input
-            className='rounded p-2 w-full dark:bg-gray-800'
-            type='text'
-            value={backgroundImage}
-            onChange={(e) => setBackgroundImage(e.target.value)}
-          ></input>
+          <div className='flex flex-col mb-5'>
+            <label>Background Image</label>
+            <input
+              className='rounded p-2 w-full dark:bg-gray-800'
+              type='text'
+              value={backgroundImage}
+              onChange={(e) => setBackgroundImage(e.target.value)}
+            ></input>
+          </div>
+          <div className={'flex flex-col mb-5'}>
+            <label>Pinned Sites</label>
+            <textarea
+              className='rounded p-2 w-full dark:bg-gray-800'
+              value={pinnedSites.join('\n')}
+              onChange={(e) => setPinnedSites(e.target.value.split('\n'))}
+            ></textarea>
+          </div>
         </div>
-        <div className={'flex flex-col mb-5'}>
-          <label>Pinned Sites</label>
-          <textarea
-            className='rounded p-2 w-full dark:bg-gray-800'
-            value={pinnedSites.join('\n')}
-            onChange={(e) => setPinnedSites(e.target.value.split('\n'))}
-          ></textarea>
-        </div>      </div>}
-<button type='button' onClick={() => setOpen(!open)} className='fixed bottom-0 right-0 mb-5 mr-5 dark:text-white'>
-          <FontAwesomeIcon
-            icon={faCog}
-            size='3x'
-            fixedWidth
-          />
-        </button>
+      )}
+      <button
+        type='button'
+        onClick={() => setOpen(!open)}
+        className='fixed bottom-0 right-0 mb-5 mr-5 dark:text-white'
+      >
+        <FontAwesomeIcon icon={faCog} size='3x' fixedWidth />
+      </button>
     </div>
   )
 }

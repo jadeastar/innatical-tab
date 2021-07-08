@@ -11,7 +11,7 @@ export const PinnedSites = ({ urls }: { urls: string[] }) => {
             className='bg-white dark:bg-secondary rounded-xl mx-3 p-3 shadow'
           >
             <ReactImageFallback
-              className='w-9 rounded-xl'
+              className='w-8 rounded-xl max-w-none'
               src={
                 parsed.host === 'octii.chat'
                   ? 'https://cdn.octii.chat/assets/default.webp'

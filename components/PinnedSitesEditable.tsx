@@ -2,16 +2,16 @@ import ReactImageFallback from 'react-image-fallback'
 
 export const PinnedSites = ({ urls }: { urls: string[] }) => {
   return (
-    <div className='flex justify-center overflow-x-auto'>
+    <div className='flex overflow-x-auto'>
       {urls.map((url) => {
         const parsed = new URL(url)
         return (
           <a
             href={url}
-            className={`bg-white rounded-xl shadow bg-primary mx-1 p-2`}
+            className={`bg-white rounded-xl shadow dark:bg-primary mx-1 p-2`}
           >
             <ReactImageFallback
-              className='w-96 rounded-xl'
+              className='w-8 rounded-xl max-w-none'
               src={
                 parsed.host === 'octii.chat'
                   ? 'https://cdn.octii.chat/assets/default.webp'
