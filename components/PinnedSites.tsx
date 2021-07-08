@@ -8,7 +8,7 @@ export const PinnedSites = ({ urls }: { urls: string[] }) => {
         return (
           <a
             href={url}
-            className='bg-white dark:bg-gray-800 rounded-xl mx-3 p-3 shadow'
+            className='bg-white dark:bg-secondary rounded-xl mx-3 p-3 shadow'
           >
             <ReactImageFallback
               className='w-9 rounded-xl'
