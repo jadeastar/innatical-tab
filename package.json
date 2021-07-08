@@ -14,6 +14,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "@headlessui/react": "^1.3.0",
     "@innatical/innstate": "^1.0.3",
     "@polygon.io/client-js": "^2.1.2",
     "chrome-webstore-upload": "^0.4.4",

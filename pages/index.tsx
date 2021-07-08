@@ -1,7 +1,7 @@
 import Time from '../components/Time'
 import PinnedSites from '../components/PinnedSites'
 import styles from '../styles/Home.module.scss'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import WeatherWidget from '../components/WeatherWidget'
 import WidgetBase from '../components/WidgetBase'
 
@@ -11,9 +11,20 @@ import Link from 'next/link'
 import Settings from '../util/settings'
 import BlankWidget from '../components/BlankWidget'
 import StockWidget from '../components/StockWidget'
+import dynamic from 'next/dynamic'
+import PinnedSitesEditable from '../components/PinnedSitesEditable'
+import Friends from '../components/Friends'
+
 interface Widget {
-  type: 'stock' | 'news' | 'custom' | 'weather'
+  type: 'stock' | 'news' | 'custom' | 'weather' | 'friend'
   props?: any
+}
+
+enum Status {
+  ONLINE,
+  OFFLINE,
+  IDLE,
+  DND
 }
 
 const defaultWidgets: Widget[] = [
@@ -43,13 +54,34 @@ const defaultWidgets: Widget[] = [
     }
   },
   {
-    type: 'weather',
+    type: 'friend',
     props: {
-      city: '',
-      units: ''
+      friends: [
+        {
+          name: "Lleyton",
+          status: Status.ONLINE
+        },
+        {
+          name: "Owen",
+          status: Status.DND
+        },
+        {
+          name: "Paxton",
+          status: Status.IDLE
+        },
+        {
+          name: "Joel",
+          status: Status.ONLINE
+        },
+        {
+          name: "Wyeth",
+          status: Status.OFFLINE
+        }
+      ],
     }
   }
 ]
+
 
 const Home = () => {
   const [widgets, setWidgets] = useState<Widget[] | null>()
@@ -63,7 +95,8 @@ const Home = () => {
     }
   }, [])
 
-  const { backgroundImage, pinnedSites } = Settings.useContainer()
+  const { backgroundImage, pinnedSites, setBackgroundImage, setPinnedSites } = Settings.useContainer()
+  const [open, setOpen] = useState(false)
 
   return (
     <div>
@@ -90,29 +123,52 @@ const Home = () => {
       <div className='mx-auto max-w-3xl pt-10'>
         <PinnedSites urls={pinnedSites} />
       </div>
-      <div className='flex flex-wrap p-12 gap-5 justify-center'>
+      <div className='flex flex-wrap px-12 pt-12 gap-5 justify-center'>
         {widgets?.map((widget) => {
           switch (widget.type) {
             case 'stock':
               return <StockWidget {...widget.props} />
             case 'weather':
               return <WeatherWidget {...widget.props} />
+            case 'friend':
+              return <Friends  {...widget.props} />
             default:
               return <BlankWidget />
           }
-          return <BlankWidget />
         })}
       </div>
-      <Link href='/settings'>
-        <button type='button'>
+      {open && <div className="fixed bottom-0 top-0 right-0 w-96 shadow bg-offwhite dark:bg-secondary dark:text-white p-5 flex flex-col">
+        <h1 className="font-bold text-2xl">Settings</h1>
+        <div className={'flex flex-col mb-5'}>
+          <label className="text-xl pt-4">Bookmark Settings</label>
+
+          <div className="flex">
+            <PinnedSitesEditable urls={pinnedSites} />
+          </div>
+
+          <label className="pt-48">Background Image</label>
+          <input
+            className='rounded p-2 w-full dark:bg-gray-800'
+            type='text'
+            value={backgroundImage}
+            onChange={(e) => setBackgroundImage(e.target.value)}
+          ></input>
+        </div>
+        <div className={'flex flex-col mb-5'}>
+          <label>Pinned Sites</label>
+          <textarea
+            className='rounded p-2 w-full dark:bg-gray-800'
+            value={pinnedSites.join('\n')}
+            onChange={(e) => setPinnedSites(e.target.value.split('\n'))}
+          ></textarea>
+        </div>      </div>}
+<button type='button' onClick={() => setOpen(!open)} className='fixed bottom-0 right-0 mb-5 mr-5 dark:text-white'>
           <FontAwesomeIcon
-            className='absolute bottom-5 right-5 dark:text-white'
             icon={faCog}
             size='3x'
             fixedWidth
           />
         </button>
-      </Link>
     </div>
   )
 }
