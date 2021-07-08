@@ -20,6 +20,7 @@
     "chrome-webstore-upload": "^0.4.4",
     "next": "10.2.3",
     "react": "17.0.2",
+    "react-beautiful-dnd": "^13.1.0",
     "react-dom": "17.0.2",
     "react-image-fallback": "^8.0.0",
     "react-query": "^3.16.0",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.9",
+    "@types/react-beautiful-dnd": "^13.1.1",
     "@types/react-image-fallback": "^8.0.2",
     "autoprefixer": "^10.2.6",
     "postcss": "^8.3.0",

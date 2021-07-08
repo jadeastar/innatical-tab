@@ -84,7 +84,7 @@ const Home = () => {
     }
   }, [])
 
-  const { backgroundImage, pinnedSites, setBackgroundImage, setPinnedSites } =
+  const { backgroundImage, pinnedSites, setBackgroundImage } =
     Settings.useContainer()
   const [open, setOpen] = useState(false)
 
@@ -142,14 +142,6 @@ const Home = () => {
               value={backgroundImage}
               onChange={(e) => setBackgroundImage(e.target.value)}
             ></input>
-          </div>
-          <div className={'flex flex-col mb-5'}>
-            <label>Pinned Sites</label>
-            <textarea
-              className='rounded p-2 w-full dark:bg-gray-800'
-              value={pinnedSites.join('\n')}
-              onChange={(e) => setPinnedSites(e.target.value.split('\n'))}
-            ></textarea>
           </div>
         </div>
       )}
