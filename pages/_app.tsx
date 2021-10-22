@@ -6,13 +6,13 @@ import Settings from '../util/settings'
 
 const queryClient = new QueryClient()
 
-function MyApp({
+const App = ({
   Component,
   pageProps
 }: {
   Component: React.FC
   pageProps: any
-}) {
+}) => {
   return (
     <QueryClientProvider client={queryClient}>
       <Settings.Provider>
@@ -22,4 +22,4 @@ function MyApp({
   )
 }
 
-export default MyApp
+export default App

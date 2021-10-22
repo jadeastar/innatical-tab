@@ -2,14 +2,10 @@ import Time from '../components/Time'
 import PinnedSites from '../components/PinnedSites'
 import styles from '../styles/Home.module.scss'
 import React, { useEffect, useState } from 'react'
-import WeatherWidget from '../components/WeatherWidget'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import Settings from '../util/settings'
-import BlankWidget from '../components/BlankWidget'
-import StockWidget from '../components/StockWidget'
 import PinnedSitesEditable from '../components/PinnedSitesEditable'
-import Friends from '../components/Friends'
 
 interface Widget {
   type: 'stock' | 'news' | 'custom' | 'weather' | 'friend'
@@ -31,43 +27,14 @@ const defaultWidgets: Widget[] = [
     }
   },
   {
-    type: 'custom',
-    props: {
-      src: 'https://ytprivate.com/embed/dQw4w9WgXcQ'
-    }
+    type: 'news',
+    props: {}
   },
   {
     type: 'weather',
     props: {
       city: '',
       units: ''
-    }
-  },
-  {
-    type: 'friend',
-    props: {
-      friends: [
-        {
-          name: 'Lleyton',
-          status: Status.ONLINE
-        },
-        {
-          name: 'Owen',
-          status: Status.DND
-        },
-        {
-          name: 'Paxton',
-          status: Status.IDLE
-        },
-        {
-          name: 'Joel',
-          status: Status.ONLINE
-        },
-        {
-          name: 'Wyeth',
-          status: Status.OFFLINE
-        }
-      ]
     }
   }
 ]
@@ -89,17 +56,18 @@ const Home = () => {
   const [open, setOpen] = useState(false)
 
   return (
-    <div>
+    <div className='h-full'>
       <div
-        className={`${styles.banner} p-12 relative bg-no-repeat bg-cover bg-center`}
+        className={`h-full  w-full fixed top-0 left-0 bg-no-repeat bg-cover bg-center`}
         style={{
           backgroundImage: `url(${backgroundImage})`
         }}
-      >
+      ></div>
+      <div className='relative flex flex-col justify-center items-center w-full h-full'>
         <Time />
         <input
-          className={`p-7 absolute h-10 rounded-3xl w-7/12 xl:w-5/12 shadow left-0 right-0 mx-auto dark:bg-secondary dark:text-white ${styles.searchBar}`}
-          placeholder='Search the web...'
+          className={`mt-8 p-7 h-10 rounded-xl w-7/12 xl:w-5/12 shadow left-0 right-0 mx-auto dark:bg-secondary dark:text-white ${styles.searchBar}`}
+          placeholder='Search DuckDuckGo'
           autoFocus
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
@@ -109,23 +77,10 @@ const Home = () => {
             }
           }}
         ></input>
-      </div>
-      <div className='mx-auto max-w-3xl pt-10'>
-        <PinnedSites urls={pinnedSites} />
-      </div>
-      <div className='flex flex-wrap px-12 pt-12 gap-5 justify-center'>
-        {widgets?.map((widget) => {
-          switch (widget.type) {
-            case 'stock':
-              return <StockWidget {...widget.props} />
-            case 'weather':
-              return <WeatherWidget {...widget.props} />
-            case 'friend':
-              return <Friends {...widget.props} />
-            default:
-              return <BlankWidget />
-          }
-        })}
+
+        <div className='mx-auto max-w-3xl pt-8'>
+          <PinnedSites urls={pinnedSites} />
+        </div>
       </div>
       {open && (
         <div className='fixed bottom-0 top-0 right-0 w-96 shadow bg-offwhite dark:bg-secondary dark:text-white p-5 flex flex-col'>
@@ -148,9 +103,9 @@ const Home = () => {
       <button
         type='button'
         onClick={() => setOpen(!open)}
-        className='fixed bottom-0 right-0 mb-5 mr-5 dark:text-white'
+        className='w-10 h-10 fixed bottom-0 right-0 mb-5 mr-5 p-2 rounded-lg dark:text-white bg-off-white dark:bg-secondary'
       >
-        <FontAwesomeIcon icon={faCog} size='3x' fixedWidth />
+        <FontAwesomeIcon icon={faCog} className='text-lg' />
       </button>
     </div>
   )

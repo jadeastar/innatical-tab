@@ -29,7 +29,6 @@ const useSettings = () => {
   )
 
   const [pinnedSites, setPinnedSites] = useLocalStorage('pinned', [
-    'https://octii.chat',
     'https://duckduckgo.com',
     'https://twitter.com',
     'https://reddit.com',
