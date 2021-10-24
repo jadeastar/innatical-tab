@@ -6,6 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import Settings from '../util/settings'
 import PinnedSitesEditable from '../components/PinnedSitesEditable'
+import FastAverageColor, {
+  IFastAverageColorResult,
+  IFastAverageColorRgba
+} from 'fast-average-color'
+import { Helmet } from 'react-helmet'
 
 interface Widget {
   type: 'stock' | 'news' | 'custom' | 'weather' | 'friend'
@@ -55,8 +60,22 @@ const Home = () => {
     Settings.useContainer()
   const [open, setOpen] = useState(false)
 
+  const [theme, setTheme] = useState<string>()
+  useEffect(() => {
+    if (backgroundImage == '') {
+      return setTheme('000000')
+    }
+    const fac = new FastAverageColor()
+    fac.getColorAsync(backgroundImage).then((color) => {
+      setTheme(color.hex)
+    })
+  }, [backgroundImage])
+
   return (
     <div className='h-full'>
+      <Helmet>
+        <meta name='theme-color' content={theme} />
+      </Helmet>
       <div
         className={`h-full  w-full fixed top-0 left-0 bg-no-repeat bg-cover bg-center`}
         style={{
