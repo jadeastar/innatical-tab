@@ -12,50 +12,7 @@ import FastAverageColor, {
 } from 'fast-average-color'
 import { Helmet } from 'react-helmet'
 
-interface Widget {
-  type: 'stock' | 'news' | 'custom' | 'weather' | 'friend'
-  props?: any
-}
-
-enum Status {
-  ONLINE,
-  OFFLINE,
-  IDLE,
-  DND
-}
-
-const defaultWidgets: Widget[] = [
-  {
-    type: 'stock',
-    props: {
-      symbols: ['GME', 'APPL', 'RBLX', 'TSLA']
-    }
-  },
-  {
-    type: 'news',
-    props: {}
-  },
-  {
-    type: 'weather',
-    props: {
-      city: '',
-      units: ''
-    }
-  }
-]
-
 const Home = () => {
-  const [widgets, setWidgets] = useState<Widget[] | null>()
-  useEffect(() => {
-    const item = localStorage.getItem('widgets')
-    if (item) {
-      setWidgets(JSON.parse(item))
-    } else {
-      localStorage.setItem('widgets', JSON.stringify(defaultWidgets))
-      setWidgets(defaultWidgets)
-    }
-  }, [])
-
   const { backgroundImage, pinnedSites, setBackgroundImage } =
     Settings.useContainer()
   const [open, setOpen] = useState(false)
