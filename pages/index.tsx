@@ -1,39 +1,34 @@
 import Time from '../components/Time'
 import PinnedSites from '../components/PinnedSites'
 import styles from '../styles/Home.module.scss'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import Settings from '../util/settings'
 import PinnedSitesEditable from '../components/PinnedSitesEditable'
-import FastAverageColor, {
-  IFastAverageColorResult,
-  IFastAverageColorRgba
-} from 'fast-average-color'
-import { Helmet } from 'react-helmet'
+import FastAverageColor from 'fast-average-color'
+import { useAsync } from "useasync-ssr";
+import Head from 'next/head'
 
 const Home = () => {
   const { backgroundImage, pinnedSites, setBackgroundImage } =
     Settings.useContainer()
   const [open, setOpen] = useState(false)
 
-  const [theme, setTheme] = useState<string>()
-  useEffect(() => {
+  const theme = useAsync(async () => {
     if (backgroundImage == '') {
-      setTheme('#070b10')
-      return
+      return '#070b10'
     }
+
     const fac = new FastAverageColor()
-    fac.getColorAsync(backgroundImage).then((color) => {
-      setTheme(color.hex)
-    })
+    return (await fac.getColorAsync(backgroundImage)).hex
   }, [backgroundImage])
 
   return (
     <div className='h-full'>
-      <Helmet>
-        <meta name='theme-color' content={theme} />
-      </Helmet>
+      <Head>
+        {theme.value && <meta name='theme-color' content={theme.value} /> }
+      </Head>
       <div
         className={`h-full  w-full fixed top-0 left-0 bg-no-repeat bg-cover bg-center`}
         style={{
