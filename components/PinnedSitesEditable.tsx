@@ -65,6 +65,18 @@ export const PinnedSites = ({ urls }: { urls: string[] }) => {
                     className='rounded p-2 w-full dark:bg-gray-800'
                     value={website}
                     onChange={(e) => setWebsite(e.target.value)}
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        try {
+                          new URL(website)
+                          if (pinnedSites.includes(website))
+                            throw new Error('Already Included')
+                          setIsOpen(false)
+                          setPinnedSites([...pinnedSites, website])
+                          setWebsite('')
+                        } catch {}
+                      }
+                    }}
                   ></input>
                 </div>
 
