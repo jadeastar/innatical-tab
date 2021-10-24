@@ -20,7 +20,8 @@ const Home = () => {
   const [theme, setTheme] = useState<string>()
   useEffect(() => {
     if (backgroundImage == '') {
-      return setTheme('000000')
+      setTheme('#070b10')
+      return
     }
     const fac = new FastAverageColor()
     fac.getColorAsync(backgroundImage).then((color) => {
